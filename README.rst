@@ -1,8 +1,8 @@
 ====================
-Django AdminLinks
+Django JumpToAdmin
 ====================
 
-Django AdminLinks is a library that offers administrators easy access
+Django JumpToAdmin is a library that offers administrators easy access
 to the Django admin interface for any object from the public-facing interface.
 
 A Django template tag outputs class names to the template. A Javascript file
@@ -13,59 +13,59 @@ When clicked, these links load the Django admin pages in an iframe above the cur
 
 These links only appear for logged in users with admin permissions on each specified object. 
 
-Django AdminLinks is very immature software. If you have ideas for other capabilities please fork this project give them a try. Possible future capabilities include support for custom admin links on a per-object basis, and Javascript configuration options for positioning and styling.
+Django JumpToAdmin is very immature software. If you have ideas for other capabilities please fork this project give them a try. Possible future capabilities include support for custom admin links on a per-object basis, Javascript configuration options for positioning and styling, and an option to refresh the page after closing the lightbox.
 
 
 Dependencies
 =============
 
-* Django AdminLinks is developed against Django trunk, but should work on Django 1.0 and newer. 
+* Django JumpToAdmin is developed against Django trunk, but should work on Django 1.0 and newer. 
 
-* Django AdminLinks requires jQuery be loaded from templates to display any links
+* Django JumpToAdmin requires jQuery be loaded from templates to display any links
 
 
 Installation
 ============
 
-#. Add the 'adminlinks' package to your Python path.
+#. Add the 'jumptoadmin' package to your Python path.
 
 #. Add the following to the INSTALLED_APPS list in your settings.py file:
 
-	``'adminlinks',``
+	``'jumptoadmin',``
 	
 #. Add the following to the TEMPLATE_CONTEXT_PROCESSORS list in your settings.py file:
 
-	``'adminlinks.context_processors.media',``
+	``'jumptoadmin.context_processors.media',``
 	
-	This adds a {{ ADMINLINKS_MEDIA_URL }} variable to the context of each template.
+	This adds a {{ JUMPTOADMIN_MEDIA_URL }} variable to the context of each template.
 	
-#. Create a symbolic link from your project's media folder to the media folder inside the adminlinks package
+#. Create a symbolic link from your project's media folder to the media folder inside the jumptoadmin package
 	
 	At the command line:
 	
-	``ln -s /path/to/your/media/adminlinks/ /path/to/django-adminlinks/adminlinks/media/``
+	``ln -s /path/to/your/media/jumptoadmin/ /path/to/django-jumptoadmin/jumptoadmin/media/``
 	
-#. (Optionally) Specify an ADMINLINKS_MEDIA_URL variable like:
+#. (Optionally) Specify an JUMPTOADMIN_MEDIA_URL variable like:
 	
-	``ADMINLINKS_MEDIA_URL = '/URL/to/your/media/adminlinks/'``
+	``JUMPTOADMIN_MEDIA_URL = '/URL/to/your/media/jumptoadmin/'``
 	
-	If not specified, ADMINLINKS_MEDIA_URL will default to your MEDIA_URL value + 'adminlinks/'
+	If not specified, JUMPTOADMIN_MEDIA_URL will default to your MEDIA_URL value + 'jumptoadmin/'
 	
 #. In your base.html template (or any specific template that you'd like) add the following inside the HTML head:
 	
-	``{% if user.is_staff %}<script type="text/javascript" src="{{ ADMINLINKS_MEDIA_URL }}adminlinks.js"></script>{% endif %}``
+	``{% if user.is_staff %}<script type="text/javascript" src="{{ JUMPTOADMIN_MEDIA_URL }}jumptoadmin.js"></script>{% endif %}``
 	
-	``{% if user.is_staff %}<link href="{{ ADMINLINKS_MEDIA_URL }}adminlinks.css" rel="stylesheet" type="text/css" />{% endif %}``
+	``{% if user.is_staff %}<link href="{{ JUMPTOADMIN_MEDIA_URL }}jumptoadmin.css" rel="stylesheet" type="text/css" />{% endif %}``
 	
-	This brings in the Javascript and CSS needed to show AdminLinks
+	This brings in the Javascript and CSS needed to show JumpToAdmin
 	
-#. In any template that contains objects for which you'd like AdminLinks, load the "adminlinks" templatetag library then pass the desired object to the "adminlink_flag" tag inside an HTML class::
+#. In any template that contains objects for which you'd like JumpToAdmin, load the "jumptoadmin" templatetag library then pass the desired object to the "jumptoadmin_flag" tag inside an HTML class::
 
-	{% load adminlinks %}
-	<div id="objectid" class="{% adminlink_flag objectvarhere %}">...</div>
+	{% load jumptoadmin %}
+	<div id="objectid" class="{% jumptoadmin_flag objectvarhere %}">...</div>
 
 	{% for comment in comments %}
-		<div id="c{{ comment.id }}" class="comment {% adminlink_flag comment %}">
+		<div id="c{{ comment.id }}" class="comment {% jumptoadmin_flag comment %}">
 			...
 		</div>
 	{% endfor %}
@@ -74,5 +74,5 @@ Installation
 Credits
 =======
 
-* Django AdminLinks is designed and developed by `Ryan Berg <http://ryanberg.net>`_
-* Django AdminLinks uses Thickbox Javascript adapted from `ThickBox 3.1 <http://jquery.com/demo/thickbox/>`_
+* Django JumpToAdmin is designed and developed by `Ryan Berg <http://ryanberg.net>`_
+* Django JumpToAdmin uses Thickbox Javascript adapted from `ThickBox 3.1 <http://jquery.com/demo/thickbox/>`_
