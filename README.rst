@@ -11,7 +11,9 @@ and adds links to Change or Delete any object.
 
 When clicked, these links load the Django admin pages in an iframe above the current page for easy access.
 
-Django AdminLinks is very immature software. If you have ideas for other capabilities please fork this project give them a try.
+These links only appear for logged in users with admin permissions on each specified object. 
+
+Django AdminLinks is very immature software. If you have ideas for other capabilities please fork this project give them a try. One possible future capability is support for custom admin links on a per-object basis.
 
 
 Dependencies
