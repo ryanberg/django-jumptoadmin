@@ -35,9 +35,17 @@ Installation
 	
 	This adds a {{ ADMINLINKS_MEDIA_URL }} variable to the context of each template.
 	
+#. Create a symbolic link from your project's media folder to the media folder inside the adminlinks package
+	
+	At the command line:
+	
+	``ln -s /path/to/your/media/adminlinks/ /path/to/django-adminlinks/adminlinks/media/``
+	
+	Wil
+	
 #. (Optionally) Specify an ADMINLINKS_MEDIA_URL variable like:
 	
-	``ADMINLINKS_MEDIA_URL = '/path/to/adminlinksmedia/'``
+	``ADMINLINKS_MEDIA_URL = '/URL/to/your/media/adminlinks/'``
 	
 	If not specified, ADMINLINKS_MEDIA_URL will default to your MEDIA_URL value + 'adminlinks/'
 	
