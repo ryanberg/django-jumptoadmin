@@ -54,9 +54,8 @@ Installation
 	
 	This brings in the Javascript and CSS needed to show AdminLinks
 	
-#. In any template that contains objects for which you'd like AdminLinks, load the "adminlinks" templatetag library then pass the desired object to the "adminlink_flag" tag inside an HTML class:
+#. In any template that contains objects for which you'd like AdminLinks, load the "adminlinks" templatetag library then pass the desired object to the "adminlink_flag" tag inside an HTML class::
 
-::
 	{% load adminlinks %}
 	<div id="objectid" class="{% adminlink_flag objectvarhere %}">...</div>
 
