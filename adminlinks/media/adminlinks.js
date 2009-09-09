@@ -1,4 +1,6 @@
-/* Overlay code adapted from http://jquery.com/demo/thickbox/thickbox-code/thickbox.js */
+/* The code for overlaying /admin/ pages over the current page
+has been adapted from the Thickbox code
+avilable at http://jquery.com/demo/thickbox/thickbox-code/thickbox.js */
 
 var overlay_pathToImage = "{{ MEDIA_URL }}thickbox/loadingAnimation.gif";
 var overlay_reloadOnRemove = false;
@@ -14,7 +16,7 @@ function getAdminHREFs(flag) {
 	var classArray = classString.split('-');
 	var overlayURLBase = '/admin/';
 	var overlayURLParams = '/?OVERLAY_iframe=true&height=400&width=800';
-	var overlayListURL = overlayURLBase + classArray[0] + '/' + classArray[1] + '/' + overlayURLParams;
+	var overlayListURL = overlayURLBase + classArray[0] + '/' + classArray[1] + overlayURLParams;
 	var overlayObjectURL = overlayURLBase + classArray[0] + '/' + classArray[1] + '/' + classArray[2] + overlayURLParams;
 	var overlayDeleteURL = overlayURLBase + classArray[0] + '/' + classArray[1] + '/' + classArray[2] + '/delete' + overlayURLParams;
 	var model = classArray[1].substr(0,1).toUpperCase() + classArray[1].substring(1);
@@ -182,9 +184,32 @@ $(document).ready(function() {
 		var adminListHREF = adminHREFs[1];
 		var adminDeleteHREF = adminHREFs[2]
 		var adminModel = adminHREFs[3];
-		var adminLinks = $('<ul class="adminlinks"><li class="adminlinks_li_title">' + adminModel + '</li><li><a href="' + adminObjectHREF + '" class="adminlink">Edit</a></li><li><a href="' + adminListHREF + '" class="adminlink">' + 'List' + '</a></li><li class="adminlink_li_last"><a href="' + adminDeleteHREF + '" class="adminlink">Delete</a></li></ul>');
+		var adminLinks = $('<ul class="adminlinks" id="adminlinks_list"><li class="adminlinks_li_title">' + adminModel + '<a href="#adminlinks" class="adminlinks_li_close">x</a></li><li><a href="' + adminObjectHREF + '" class="adminlink">Change</a></li><li><a href="' + adminListHREF + '" class="adminlink">' + 'List' + '</a></li><li class="adminlink_li_last"><a href="' + adminDeleteHREF + '" class="adminlink">Delete</a></li></ul>');
+		var adminLinksOpacity = .25
 		
-		flag.prepend(adminLinks);
+		// Handle opacity of the adminlinks
+		adminLinks.css("opacity", 0).hover(function() {
+			// On hover, set opacity to 1
+			$(this).animate({'opacity': 1}, 100);
+		}, function() {
+			// On hover-off set opacity back to default
+			$(this).animate({'opacity': adminLinksOpacity}, 100);
+		});
+		
+		
+		// Show the adminlinks
+		adminLinks.prependTo(flag).animate({"opacity": adminLinksOpacity}, 100);
+		
+		// Handle the close button
+		$('a.adminlinks_li_close').click(function() {
+			// TODO: Unbind the hover for this flag
+			$(this).parents('.adminlinkflag_display').eq(0).unbind('mouseenter mouseleave');
+			
+			// Get rid of the links
+			$(this).parents('.adminlinkflag_display').removeClass('adminlinkflag_display').children('ul.adminlinks').remove();
+			
+			return false;
+		});
 		
 		$(".adminlinks a.adminlink").click(function(e) {
 			//console.debug("Clicked!");
