@@ -170,29 +170,46 @@ margin-top: expression(0 - parseInt(this.offsetHeight / 2) + (TBWindowMargin = d
 .adminlinks {
 	position: absolute;
 	top: 5px;
-	left: 5px;
+	right: 5px;
 	margin: 0;
 	padding: 0;
 	z-index: 50000;
-	width: 200px;
-	height: 30px;
-	line-height: 30px;
+	width: 100px;
 	background: #000;
-	opacity: .9;
 	border: #666 solid 1px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
 	list-style-type: none;
+	opacity: 0.25;
+}
+.adminlinks:hover {
+	opacity: 1;
 }
 .adminlinks li {
-	float: left;
 	display: block;
-	opacity: 1;
 	margin: 0;
-	padding:0 14px;
-	width: auto;
-	line-height: 30px;
-	font-size: 14px;
+	padding: 0;
+	line-height: 12px;
+	font-size: 12px;
 	color: #999;
+	border-bottom: #666 solid 1px;
 	background: none;
+}
+.adminlinks li a, .adminlinks li.adminlinks_li_title {
+	display: block;
+	padding: 4px 0;
+	font-size: 12px;
+	line-height: 12px;
+	text-indent: 5px;
+}
+.adminlinks li.adminlinks_li_title {
+	background: #333;
+	color: #ccc;
+	-moz-border-radius: 4px 4px 0 0;
+	-webkit-border-radius: 4px 4px 0 0;
+	border-radius: 4px 4px 0 0;
+	border-bottom: none;
 }
 .adminlinks li a {
 	color: #ccc;
@@ -201,4 +218,7 @@ margin-top: expression(0 - parseInt(this.offsetHeight / 2) + (TBWindowMargin = d
 }
 .adminlinks li a:hover {
 	color: #fff;
+}
+.adminlinks li.adminlink_li_last {
+	border-bottom: none;
 }

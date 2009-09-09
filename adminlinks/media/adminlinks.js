@@ -16,8 +16,9 @@ function getAdminHREFs(flag) {
 	var overlayURLParams = '/?OVERLAY_iframe=true&height=400&width=800';
 	var overlayListURL = overlayURLBase + classArray[0] + '/' + classArray[1] + '/' + overlayURLParams;
 	var overlayObjectURL = overlayURLBase + classArray[0] + '/' + classArray[1] + '/' + classArray[2] + overlayURLParams;
+	var overlayDeleteURL = overlayURLBase + classArray[0] + '/' + classArray[1] + '/' + classArray[2] + '/delete' + overlayURLParams;
 	var model = classArray[1].substr(0,1).toUpperCase() + classArray[1].substring(1);
-	return [overlayObjectURL, overlayListURL, model];
+	return [overlayObjectURL, overlayListURL, overlayDeleteURL, model];
 }
 
 function overlay(link) {
@@ -179,8 +180,9 @@ $(document).ready(function() {
 		var adminHREFs = getAdminHREFs(flag);
 		var adminObjectHREF = adminHREFs[0];
 		var adminListHREF = adminHREFs[1];
-		var adminModel = adminHREFs[2];
-		var adminLinks = $('<ul class="adminlinks"><li><a href="' + adminObjectHREF + '" class="adminlink">' + adminModel + '</a></li><li><a href="' + adminListHREF + '" class="adminlink">' + 'List' + '</a></li></ul>');
+		var adminDeleteHREF = adminHREFs[2]
+		var adminModel = adminHREFs[3];
+		var adminLinks = $('<ul class="adminlinks"><li class="adminlinks_li_title">' + adminModel + '</li><li><a href="' + adminObjectHREF + '" class="adminlink">Edit</a></li><li><a href="' + adminListHREF + '" class="adminlink">' + 'List' + '</a></li><li class="adminlink_li_last"><a href="' + adminDeleteHREF + '" class="adminlink">Delete</a></li></ul>');
 		
 		flag.prepend(adminLinks);
 		
