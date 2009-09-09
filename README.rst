@@ -53,9 +53,9 @@ Installation
 	
 #. In your base.html template (or any specific template that you'd like) add the following inside the HTML head:
 	
-	``<script type="text/javascript" src="{{ ADMINLINKS_MEDIA_URL }}adminlinks.js"></script>``
+	``{% if user.is_staff %}<script type="text/javascript" src="{{ ADMINLINKS_MEDIA_URL }}adminlinks.js"></script>{% endif %}``
 	
-	``<link href="{{ ADMINLINKS_MEDIA_URL }}adminlinks.css" rel="stylesheet" type="text/css" />``
+	``{% if user.is_staff %}<link href="{{ ADMINLINKS_MEDIA_URL }}adminlinks.css" rel="stylesheet" type="text/css" />{% endif %}``
 	
 	This brings in the Javascript and CSS needed to show AdminLinks
 	
