@@ -50,6 +50,7 @@ Installation
 #. In your base.html template (or any specific template that you'd like) add the following inside the HTML head:
 	
 	``<script type="text/javascript" src="{{ ADMINLINKS_MEDIA_URL }}adminlinks.js"></script>``
+	
 	``<link href="{{ ADMINLINKS_MEDIA_URL }}adminlinks.css" rel="stylesheet" type="text/css" />``
 	
 	This brings in the Javascript and CSS needed to show AdminLinks
