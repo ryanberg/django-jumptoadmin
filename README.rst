@@ -41,8 +41,6 @@ Installation
 	
 	``ln -s /path/to/your/media/adminlinks/ /path/to/django-adminlinks/adminlinks/media/``
 	
-	Wil
-	
 #. (Optionally) Specify an ADMINLINKS_MEDIA_URL variable like:
 	
 	``ADMINLINKS_MEDIA_URL = '/URL/to/your/media/adminlinks/'``
