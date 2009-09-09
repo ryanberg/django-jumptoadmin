@@ -56,15 +56,15 @@ Installation
 	
 #. In any template that contains objects for which you'd like AdminLinks, load the "adminlinks" templatetag library then pass the desired object to the "adminlink_flag" tag inside an HTML class:
 
-	::
-		{% load adminlinks %}
-		<div id="objectid" class="{% adminlink_flag objectvarhere %}">...</div>
-	
-		{% for comment in comments %}
-			<div id="c{{ comment.id }}" class="comment {% adminlink_flag comment %}">
-				...
-			</div>
-		{% endfor %}
+::
+	{% load adminlinks %}
+	<div id="objectid" class="{% adminlink_flag objectvarhere %}">...</div>
+
+	{% for comment in comments %}
+		<div id="c{{ comment.id }}" class="comment {% adminlink_flag comment %}">
+			...
+		</div>
+	{% endfor %}
 
 
 Credits
