@@ -9,6 +9,8 @@ A Django template tag outputs class names to the template. A Javascript file
 parses the rendered template in the browser for these classes
 and adds links to Change or Delete any object.
 
+When clicked, these links load the Django admin pages in an iframe above the current page for easy access.
+
 Django AdminLinks is very immature software. If you have ideas for other capabilities please fork this project give them a try.
 
 

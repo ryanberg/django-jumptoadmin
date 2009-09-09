@@ -202,11 +202,9 @@ $(document).ready(function() {
 		
 		// Handle the close button
 		$('a.adminlinks_li_close').click(function() {
-			// TODO: Unbind the hover for this flag
-			$(this).parents('.adminlinkflag_display').eq(0).unbind('mouseenter mouseleave');
-			
-			// Get rid of the links
-			$(this).parents('.adminlinkflag_display').removeClass('adminlinkflag_display').children('ul.adminlinks').remove();
+			// Unbind the hover for this flag and remove the adminlinks
+			$(this).parents('.adminlinkflag_display').eq(0).unbind('mouseenter mouseleave')
+			.removeClass('adminlinkflag_display').children('ul.adminlinks').remove();
 			
 			return false;
 		});
