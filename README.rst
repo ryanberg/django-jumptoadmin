@@ -13,7 +13,7 @@ When clicked, these links load the Django admin pages in an iframe above the cur
 
 These links only appear for logged in users with admin permissions on each specified object. 
 
-Django AdminLinks is very immature software. If you have ideas for other capabilities please fork this project give them a try. One possible future capability is support for custom admin links on a per-object basis.
+Django AdminLinks is very immature software. If you have ideas for other capabilities please fork this project give them a try. Possible future capabilities include support for custom admin links on a per-object basis, and Javascript configuration options for positioning and styling.
 
 
 Dependencies
