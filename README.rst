@@ -5,7 +5,7 @@ Django JumpToAdmin
 Django JumpToAdmin is a library that offers administrators easy access
 to the Django admin interface for any object from the public-facing interface.
 
-(See screenshots at `http://emberapp.com/explore/tags/jumptoadmin <http://emberapp.com/explore/tags/jumptoadmin>`_)
+(See UI screencast and an overview at `http://ryanberg.net/blog/2009/sep/10/introducing-django-jumptoadmin/ <http://ryanberg.net/blog/2009/sep/10/introducing-django-jumptoadmin/>`_, and screenshots at `http://emberapp.com/explore/tags/jumptoadmin <http://emberapp.com/explore/tags/jumptoadmin>`_)
 
 A Django template tag outputs class names to the template. A Javascript file
 parses the rendered template in the browser for these classes
