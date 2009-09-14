@@ -119,37 +119,7 @@ class JumpToAdminFlag(template.Node):
 			# Update the dict in the context
 			#context.__setitem__('jumpflags', jumpflags)
 			context.dicts[-1]['jumpflags'] = jumpflags
-			
-			#print context.__getitem__('jumpflags')
-			
-			"""
-			
-			# OLD WAY BELOW
-			
-			# Classes for javascript to hook into and display links
-			actions_string = 'jumptoadminflag jumptoadminflag_%s-%s-%s' % (ct.app_label, ct.model, self.jumptoadmin_object.pk)
-			
-			# This actions list will allow us to easily add actions in the future
-			# use - instead of / in URLs for use inside of html classes
-			actions = [
-				{
-					'name': 'change',
-					'url': '-admin-%s-%s-%s-' % (ct.app_label, ct.model, self.jumptoadmin_object.pk)
-				},
-				{
-					'name': 'delete',
-					'url': '-admin-%s-%s-%s-delete-' % (ct.app_label, ct.model, self.jumptoadmin_object.pk)
-				}
-			]
-			
-			for action in actions:
-				# Only display links for actions the user has permission to perform
-				if user.has_perm('%s.%s_%s' % (ct.app_label, action['name'], ct.model)):
-					# User has this permission
-					actions_string += ' jumptoadminaction_%s_%s' % (action['name'], action['url'])
 
-			return actions_string
-			"""
 			
 			# Return the string to be used as a class
 			return flag_string
