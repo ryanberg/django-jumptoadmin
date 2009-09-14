@@ -5,23 +5,7 @@ avilable at http://jquery.com/demo/thickbox/thickbox-code/thickbox.js */
 var overlay_pathToImage = "{{ MEDIA_URL }}thickbox/loadingAnimation.gif";
 var overlay_reloadOnRemove = false;
 
-function getAdminHREFs(flag) {
-	/*
-	flag must be a jQuery object
-	returns an array of the object link and the list link and the model name
-	*/
-	var classes = flag.attr('class');
-	var re = /jumptoadminflag_[\w\d-]+/;
-	var classString = classes.match(re)[0].replace('jumptoadminflag_', '');
-	var classArray = classString.split('-');
-	var overlayURLBase = '/admin/';
-	var overlayURLParams = '/?OVERLAY_iframe=true&height=400&width=800';
-	var overlayListURL = overlayURLBase + classArray[0] + '/' + classArray[1] + overlayURLParams;
-	var overlayObjectURL = overlayURLBase + classArray[0] + '/' + classArray[1] + '/' + classArray[2] + overlayURLParams;
-	var overlayDeleteURL = overlayURLBase + classArray[0] + '/' + classArray[1] + '/' + classArray[2] + '/delete' + overlayURLParams;
-	var model = classArray[1].substr(0,1).toUpperCase() + classArray[1].substring(1);
-	return [overlayObjectURL, overlayListURL, overlayDeleteURL, model];
-}
+var flagActionsListOpacity = 0.25;
 
 function overlay(link) {
 	var t = link.title || link.name || null;
@@ -174,49 +158,95 @@ function overlay_detectMacXFF() {
   }
 }
 
-$(document).ready(function() {
-	var adminLinkFlags = $('.jumptoadminflag');
-	adminLinkFlags.hover(function() {
-		var flag = $(this);
-		flag.addClass('jumptoadminflag_display')
-		var adminHREFs = getAdminHREFs(flag);
-		var adminObjectHREF = adminHREFs[0];
-		var adminListHREF = adminHREFs[1];
-		var adminDeleteHREF = adminHREFs[2]
-		var adminModel = adminHREFs[3];
-		var adminLinks = $('<ul class="jumptoadminlinks" id="jumptoadminlinks_list"><li class="jumptoadminlinks_li_title">' + adminModel + '<a href="#jumptoadminlinks" class="jumptoadminlinks_li_close">x</a></li><li><a href="' + adminObjectHREF + '" class="jumptoadmin">Change</a></li><li><a href="' + adminListHREF + '" class="jumptoadmin">' + 'List' + '</a></li><li class="jumptoadmin_li_last"><a href="' + adminDeleteHREF + '" class="jumptoadmin">Delete</a></li></ul>');
-		var adminLinksOpacity = .25
+function showJumpToAdminLinks(flaggedObject) {
+	/*
+	flaggedObject should be a jQuery object
+	*/
+	
+	var re = /jumptoadminflag_[\w\d-]+/;
+	var classString = flaggedObject.attr('class').match(re)[0]; // Will look like jumptoadminflag_app-model-id
+	
+	function getFlaggedObjectDetails(classString) {
+		/*
+		Loop through each of the flags from the global jumpFlagList variable
+		Until we find one with a 'class' attribute equal to the above classString
+		*/
+		for (var i = 0; i < jumpFlagList.length; i++) {
+			var flaggedObjectDetails = jumpFlagList[i];
+			if (flaggedObjectDetails['class'] == classString) {
+				return flaggedObjectDetails;
+			}
+		}
+		return null;
+	}
+	
+	flaggedObjectDetails = getFlaggedObjectDetails(classString);
+	
+	if (flaggedObjectDetails && flaggedObjectDetails['actions'].length) {
+		/*
+		Create the unordered list of actions
+		flaggedObjectDetails should have 'name', 'class', and 'actions'
+		*/
+		var flagUL = '<ul class="jumptoadminlinks"><li class="jumptoadminlinks_li_title">' + flaggedObjectDetails['name'] + '<a href="#jumptoadminlinks" class="jumptoadminlinks_li_close">x</a></li>';
+		
+		// Loop through each action for this flagged object
+		
+		for (var a = 0; a < flaggedObjectDetails['actions'].length; a++ ) {
+			var flagAction = flaggedObjectDetails['actions'][a];
+			var flagActionName = flagAction['name'];
+			var flagActionURL = flagAction['url'];
+			
+			var lastClass = '';
+			if (a == flaggedObjectDetails['actions'].length - 1) { lastClass = ' class="jumptoadmin_li_last"'}
+
+			flagUL += '<li' + lastClass + '><a href="' + flagActionURL + '?OVERLAY_iframe=true&height=400&width=800' + '" class="jumptoadmin">' + flagActionName.substr(0,1).toUpperCase() + flagActionName.substring(1) + '</a></li>';
+		}
+
+		flagUL += '</ul>';
+
+		// Get the actions into a jQuery object
+		var flagActionsList = $(flagUL);
 		
 		// Handle opacity of the jumptoadminlinks
-		adminLinks.css("opacity", 0).hover(function() {
+		flagActionsList.css("opacity", 0).hover(function() {
 			// On hover, set opacity to 1
 			$(this).animate({'opacity': 1}, 100);
 		}, function() {
 			// On hover-off set opacity back to default
-			$(this).animate({'opacity': adminLinksOpacity}, 100);
+			$(this).animate({'opacity': flagActionsListOpacity}, 100);
 		});
 		
-		
 		// Show the jumptoadminlinks
-		adminLinks.prependTo(flag).animate({"opacity": adminLinksOpacity}, 100);
-		
+		flaggedObject.addClass('jumptoadminflag_display');
+		flagActionsList.prependTo(flaggedObject).animate({"opacity": flagActionsListOpacity}, 100);
+
 		// Handle the close button
 		$('a.jumptoadminlinks_li_close').click(function() {
 			// Unbind the hover for this flag and remove the jumptoadminlinks
 			$(this).parents('.jumptoadminflag_display').eq(0).unbind('mouseenter mouseleave')
 			.removeClass('jumptoadminflag_display').children('ul.jumptoadminlinks').remove();
-			
+
 			return false;
 		});
-		
+
 		$(".jumptoadminlinks a.jumptoadmin").click(function(e) {
 			//console.debug("Clicked!");
-			adminLinks.remove();
+			flagActionsList.remove();
 			overlay(this);
 			//console.debug("Init!");
 			return false;
 		});
-	}, function () {
-		$(this).removeClass('jumptoadminflag_display').children('ul.jumptoadminlinks').remove();
+	}
+	
+	
+}
+
+$(document).ready(function() {
+	var flaggedObjects = $('.jumptoadminflag');
+	
+	flaggedObjects.hover(function() {
+		showJumpToAdminLinks($(this));
+	}, function() {
+		$(this).removeClass('jumptoadminflag_display').children('ul.jumptoadminlinks').animate({'opacity': 0}, 100).remove();
 	});
 });
