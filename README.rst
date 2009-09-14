@@ -63,7 +63,7 @@ Installation
 	{% if user.is_staff %}<link href="{{ JUMPTOADMIN_MEDIA_URL }}jumptoadmin.css" rel="stylesheet" type="text/css" />{% endif %}
 
 
-# In your base.html template (or any specific template you'd like) add the following just before the </body> to insert a global Javascript variable named 'jumpFlagList' that contains all the information needed to render links for each item::
+#. In your base.html template (or any specific template you'd like) add the following just before the </body> to insert a global Javascript variable named 'jumpFlagList' that contains all the information needed to render links for each item::
 
 	{% render_jumptoadmin_flags %}
 
