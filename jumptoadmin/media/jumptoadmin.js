@@ -244,9 +244,11 @@ function showJumpToAdminLinks(flaggedObject) {
 $(document).ready(function() {
 	var flaggedObjects = $('.jumptoadminflag');
 	
-	flaggedObjects.hover(function() {
-		showJumpToAdminLinks($(this));
-	}, function() {
-		$(this).removeClass('jumptoadminflag_display').children('ul.jumptoadminlinks').animate({'opacity': 0}, 100).remove();
-	});
+	if (flaggedObjects.length) {
+		flaggedObjects.hover(function() {
+			showJumpToAdminLinks($(this));
+		}, function() {
+			$(this).removeClass('jumptoadminflag_display').children('ul.jumptoadminlinks').animate({'opacity': 0}, 100).remove();
+		});
+	}
 });

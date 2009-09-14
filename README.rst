@@ -31,35 +31,41 @@ Installation
 
 #. Add the 'jumptoadmin' package to your Python path.
 
-#. Add the following to the INSTALLED_APPS list in your settings.py file:
+#. Add the following to the INSTALLED_APPS list in your settings.py file::
 
-	``'jumptoadmin',``
+	'jumptoadmin',
 	
-#. Add the following to the TEMPLATE_CONTEXT_PROCESSORS list in your settings.py file:
+#. Add the following to the TEMPLATE_CONTEXT_PROCESSORS list in your settings.py file::
 
-	``'jumptoadmin.context_processors.media',``
+	'jumptoadmin.context_processors.media',
 	
-	This adds a {{ JUMPTOADMIN_MEDIA_URL }} variable to the context of each template.
+This adds a {{ JUMPTOADMIN_MEDIA_URL }} variable to the context of each template.
 	
-#. Create a symbolic link from your project's media folder to the media folder inside the jumptoadmin package
+#. (Optionally) Create a symbolic link from your project's media folder to the media folder inside the jumptoadmin package
 	
-	At the command line:
+At the command line::
 	
-	``ln -s /path/to/your/media/jumptoadmin/ /path/to/django-jumptoadmin/jumptoadmin/media/``
+	ln -s /path/to/your/media/jumptoadmin/ /path/to/django-jumptoadmin/jumptoadmin/media/
 	
-#. (Optionally) Specify an JUMPTOADMIN_MEDIA_URL variable like:
+#. (Optionally) Specify an JUMPTOADMIN_MEDIA_URL variable like::
 	
-	``JUMPTOADMIN_MEDIA_URL = '/URL/to/your/media/jumptoadmin/'``
+	JUMPTOADMIN_MEDIA_URL = '/URL/to/your/media/jumptoadmin/'
 	
-	If not specified, JUMPTOADMIN_MEDIA_URL will default to your MEDIA_URL value + 'jumptoadmin/'
+If not specified, JUMPTOADMIN_MEDIA_URL will default to your MEDIA_URL value + 'jumptoadmin/'
 	
-#. In your base.html template (or any specific template that you'd like) add the following inside the HTML head:
+#. In your base.html template (or any specific template you'd like) add the following inside the HTML <head>::
 	
-	``{% if user.is_staff %}<script type="text/javascript" src="{{ JUMPTOADMIN_MEDIA_URL }}jumptoadmin.js"></script>{% endif %}``
+	{% if user.is_staff %}<script type="text/javascript" src="{{ JUMPTOADMIN_MEDIA_URL }}jumptoadmin.js"></script>{% endif %}
 	
-	``{% if user.is_staff %}<link href="{{ JUMPTOADMIN_MEDIA_URL }}jumptoadmin.css" rel="stylesheet" type="text/css" />{% endif %}``
+	{% if user.is_staff %}<link href="{{ JUMPTOADMIN_MEDIA_URL }}jumptoadmin.css" rel="stylesheet" type="text/css" />{% endif %}
 	
-	This brings in the Javascript and CSS needed to show JumpToAdmin
+This brings in the Javascript and CSS needed to show JumpToAdmin
+
+# In your base.html template (or any specific template you'd like) add the following just before the </body>::
+
+	{% render_jumptoadmin_flags %}
+	
+This inserts a global Javascript variable named 'jumpFlagList' that contains all of the information needed to render links for each item.
 	
 #. In any template that contains objects for which you'd like JumpToAdmin, load the "jumptoadmin" templatetag library then pass the desired object to the "jumptoadmin_flag" tag inside an HTML class::
 
