@@ -221,19 +221,29 @@ function showJumpToAdminLinks(flaggedObject) {
 		flagActionsList.prependTo(flaggedObject).animate({"opacity": flagActionsListOpacity}, 100);
 
 		// Handle the close button
-		$('a.jumptoadminlinks_li_close').click(function() {
+		$('a.jumptoadminlinks_li_close').click(function(e) {
+			// Set up the poof
+			var poof = $('<div class="poof"></div>');
+			var xOffset = 24;
+			var yOffset = 24;
+			
 			// Unbind the hover for this flag and remove the jumptoadminlinks
 			$(this).parents('.jumptoadminflag_display').eq(0).unbind('mouseenter mouseleave')
 			.removeClass('jumptoadminflag_display').children('ul.jumptoadminlinks').remove();
+			
+			poof.css({ 
+				left: e.pageX - xOffset + 'px', 
+				top: e.pageY - yOffset + 'px' 
+			}).appendTo($('body')).show();
+			
+			animatePoof(poof);
 
 			return false;
 		});
 
 		$(".jumptoadminlinks a.jumptoadmin").click(function(e) {
-			//console.debug("Clicked!");
 			flagActionsList.remove();
 			overlay(this);
-			//console.debug("Init!");
 			return false;
 		});
 	}
@@ -252,3 +262,24 @@ $(document).ready(function() {
 		});
 	}
 });
+
+/* Poof effect from http://www.kombine.net/jquery/jquery-poof-effect */
+function animatePoof(poof) {
+    var bgTop = 0; 
+    var frames = 5; 
+    var frameSize = 32; 
+    var frameRate = 60; 
+  
+    for(i = 1; i < frames; i ++) { 
+        poof.animate({ 
+            backgroundPosition: '0 ' + (bgTop - frameSize) + 'px' 
+        }, frameRate); 
+  
+        bgTop -= frameSize; 
+    } 
+  
+    setTimeout('removePoof()', frames * frameRate); 
+}
+function removePoof(poof) {
+	$('.poof').remove();
+}

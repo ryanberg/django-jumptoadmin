@@ -245,3 +245,12 @@ margin-top: expression(0 - parseInt(this.offsetHeight / 2) + (TBWindowMargin = d
 	text-shadow-color: #eaeaea;
 	text-decoration: none;
 }
+/* Poof effect from http://www.kombine.net/jquery/jquery-poof-effect */
+.poof { 
+    background: transparent url(poof.png) no-repeat 0 0; 
+    cursor: pointer; 
+    display: none; 
+    height: 32px; 
+    position: absolute; 
+    width: 32px; 
+}
