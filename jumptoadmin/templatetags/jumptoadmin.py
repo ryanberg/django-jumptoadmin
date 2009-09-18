@@ -75,32 +75,40 @@ class JumpToAdminFlag(template.Node):
 				{
 					'name': 'change',
 					'url': str('/admin/%s/%s/%s/' % (ct.app_label, ct.model, self.jumptoadmin_object.pk)),
-					'post': '',
+					'action': '',
 					'requires_permission': 1,
 				},
 				{
 					'name': 'list',
 					'url': str('/admin/%s/%s/' % (ct.app_label, ct.model)),
-					'post': '',
+					'action': '',
 					'requires_permission': 0,
 				},
 				{
 					'name': 'delete',
 					'url': str('/admin/%s/%s/%s/delete/' % (ct.app_label, ct.model, self.jumptoadmin_object.pk)),
-					'post': '',
-					'requires_perimssion': 1,
+					'action': '',
+					'requires_perimission': 1,
 				}
 			]
+			
+			
 			
 			for action in actions:
 				# Only display links for actions the user has permission to perform
 				if user.has_perm('%s.%s_%s' % (ct.app_label, action['name'], ct.model)) or not action['requires_permission']:
 					# User has this permission
 					actions_list.append(action)
-
+					
+			admin_actions = get_admin_actions(ct)
+			
+			if admin_actions:
+				actions_list.extend(admin_actions)
+			
 			flagged_object_dict = {
 				'name': str(ct.model),
 				'class': str(flagged_object_class),
+				'pk': self.jumptoadmin_object.pk,
 				'actions': actions_list,
 			}
 			
@@ -128,4 +136,45 @@ class JumpToAdminFlag(template.Node):
 			# User is not logged in and/or is not an administrator, so return an empty string
 			return ''
 			
+
+def get_admin_actions(content_type):
+	"""
+	Pass in a ContentType and this will attempt to return registered admin actions for it
+	"""
+	model_class = content_type.model_class()
+	app_label = content_type.app_label
+	
+	try:
+		from django.contrib import admin
 		
+	except ImportError:
+		# Django admin cannot be imported
+		return None
+		
+	try:
+		adminpy = __import__('%s.admin' % (app_label))
+	
+	except ImportError:
+		# No admin.py for this app can be imported
+		return None
+	
+	# Will be a list of action strings, like "make_not_public"
+	admin_action_strings = admin.site._registry[model_class].actions
+	
+	if admin_action_strings:
+		admin_actions = admin.site._registry[model_class].get_actions(model_class)
+		admin_actions_list = []
+		
+		for admin_action_string in admin_action_strings:
+			admin_action = admin_actions[admin_action_string]
+			
+			admin_actions_list.append({
+				'name': str(admin_action[2]),
+				'url': str('/admin/%s/%s/' % (content_type.app_label, content_type.model)),
+				'action': 'remove_hostinfo',
+				'requires_perimission': 0,
+			})
+			
+		return admin_actions_list
+	
+	return None

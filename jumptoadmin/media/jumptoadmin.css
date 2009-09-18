@@ -6,26 +6,26 @@
 /* ----------------------------------------------------------------------------------------------------------------*/
 /* ---------->>> thickbox specific link and font settings <<<------------------------------------------------------*/
 /* ----------------------------------------------------------------------------------------------------------------*/
-#overlay_window {
+#TB_window {
 	font: 12px Arial, Helvetica, sans-serif;
 	color: #333333;
 }
 
-#overlay_secondLine {
+#TB_secondLine {
 	font: 10px Arial, Helvetica, sans-serif;
 	color:#666666;
 }
 
-#overlay_window a:link {color: #666666;}
-#overlay_window a:visited {color: #666666;}
-#overlay_window a:hover {color: #000;}
-#overlay_window a:active {color: #666666;}
-#overlay_window a:focus{color: #666666;}
+#TB_window a:link {color: #666666;}
+#TB_window a:visited {color: #666666;}
+#TB_window a:hover {color: #000;}
+#TB_window a:active {color: #666666;}
+#TB_window a:focus{color: #666666;}
 
 /* ----------------------------------------------------------------------------------------------------------------*/
 /* ---------->>> thickbox settings <<<-----------------------------------------------------------------------------*/
 /* ----------------------------------------------------------------------------------------------------------------*/
-#overlay_overlay {
+#TB_overlay {
 	position: fixed;
 	z-index:100;
 	top: 0px;
@@ -34,20 +34,20 @@
 	width:100%;
 }
 
-.overlay_overlayMacFFBGHack {background: url(macFFBgHack.png) repeat;}
-.overlay_overlayBG {
+.TB_overlayMacFFBGHack {background: url(macFFBgHack.png) repeat;}
+.TB_overlayBG {
 	background-color:#000;
 	filter:alpha(opacity=75);
 	-moz-opacity: 0.75;
 	opacity: 0.75;
 }
 
-* html #overlay_overlay { /* ie6 hack */
+* html #TB_overlay { /* ie6 hack */
      position: absolute;
      height: expression(document.body.scrollHeight > document.body.offsetHeight ? document.body.scrollHeight : document.body.offsetHeight + 'px');
 }
 
-#overlay_window {
+#TB_window {
 	position: fixed;
 	background: #ffffff;
 	z-index: 102;
@@ -59,12 +59,12 @@
 	left:50%;
 }
 
-* html #overlay_window { /* ie6 hack */
+* html #TB_window { /* ie6 hack */
 position: absolute;
 margin-top: expression(0 - parseInt(this.offsetHeight / 2) + (TBWindowMargin = document.documentElement && document.documentElement.scrollTop || document.body.scrollTop) + 'px');
 }
 
-#overlay_window img#overlay_Image {
+#TB_window img#TB_Image {
 	display:block;
 	margin: 15px 0 0 15px;
 	border-right: 1px solid #ccc;
@@ -73,37 +73,37 @@ margin-top: expression(0 - parseInt(this.offsetHeight / 2) + (TBWindowMargin = d
 	border-left: 1px solid #666;
 }
 
-#overlay_caption{
+#TB_caption{
 	height:25px;
 	padding:7px 30px 10px 25px;
 	float:left;
 }
 
-#overlay_closeWindow{
+#TB_closeWindow{
 	height:25px;
 	padding:11px 25px 10px 0;
 	float:right;
 }
 
-#overlay_closeAjaxWindow{
+#TB_closeAjaxWindow{
 	padding:7px 10px 5px 0;
 	margin-bottom:1px;
 	text-align:right;
 	float:right;
 }
 
-#overlay_ajaxWindowTitle{
+#TB_ajaxWindowTitle{
 	float:left;
 	padding:7px 0 5px 10px;
 	margin-bottom:1px;
 }
 
-#overlay_title{
+#TB_title{
 	background-color:#e8e8e8;
 	height:27px;
 }
 
-#overlay_ajaxContent{
+#TB_ajaxContent{
 	clear:both;
 	padding:2px 15px 15px 15px;
 	overflow:auto;
@@ -111,15 +111,15 @@ margin-top: expression(0 - parseInt(this.offsetHeight / 2) + (TBWindowMargin = d
 	line-height:1.4em;
 }
 
-#overlay_ajaxContent.overlay_modal{
+#TB_ajaxContent.TB_modal{
 	padding:15px;
 }
 
-#overlay_ajaxContent p{
+#TB_ajaxContent p{
 	padding:5px 0px 5px 0px;
 }
 
-#overlay_load{
+#TB_load{
 	position: fixed;
 	display:none;
 	height:13px;
@@ -130,12 +130,12 @@ margin-top: expression(0 - parseInt(this.offsetHeight / 2) + (TBWindowMargin = d
 	margin: -6px 0 0 -104px; /* -height/2 0 0 -width/2 */
 }
 
-* html #overlay_load { /* ie6 hack */
+* html #TB_load { /* ie6 hack */
 position: absolute;
 margin-top: expression(0 - parseInt(this.offsetHeight / 2) + (TBWindowMargin = document.documentElement && document.documentElement.scrollTop || document.body.scrollTop) + 'px');
 }
 
-#overlay_HideSelect{
+#TB_HideSelect{
 	z-index:99;
 	position:fixed;
 	top: 0;
@@ -149,12 +149,12 @@ margin-top: expression(0 - parseInt(this.offsetHeight / 2) + (TBWindowMargin = d
 	width:100%;
 }
 
-* html #overlay_HideSelect { /* ie6 hack */
+* html #TB_HideSelect { /* ie6 hack */
      position: absolute;
      height: expression(document.body.scrollHeight > document.body.offsetHeight ? document.body.scrollHeight : document.body.offsetHeight + 'px');
 }
 
-#overlay_iframeContent{
+#TB_iframeContent{
 	clear:both;
 	border:none;
 	margin-bottom:-1px;
