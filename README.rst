@@ -11,11 +11,13 @@ A Django template tag outputs class names to the template. A Javascript file
 parses the rendered template in the browser for these classes
 and adds links to Change or Delete any object.
 
+Links will also be rendered to perform any "Admin actions" specified in your admin.py files.
+
 When clicked, these links load the Django admin pages in an iframe above the current page for easy access.
 
 These links only appear for logged in users with admin permissions on each specified object. 
 
-Django JumpToAdmin is very immature software. If you have ideas for other capabilities please fork this project give them a try. Possible future capabilities include support for custom admin links on a per-object basis, Javascript configuration options for positioning and styling, and an option to refresh the page after closing the lightbox.
+Django JumpToAdmin is very immature software. If you have ideas for other capabilities please fork this project give them a try.
 
 
 
