@@ -50,7 +50,7 @@ Installation
 	
 #. (Optionally) At the command line, create a symbolic link from your project's media folder to the media folder inside the jumptoadmin package::
 	
-	ln -s /path/to/your/media/jumptoadmin/ /path/to/django-jumptoadmin/jumptoadmin/media/
+	ln -s /path/to/your/media/jumptoadmin/ /path/to/django-jumptoadmin/jumptoadmin/media/jumptoadmin/
 
 	
 #. (Optionally) Specify an JUMPTOADMIN_MEDIA_URL variable in your settings.py file. If not specified, JUMPTOADMIN_MEDIA_URL will default to your MEDIA_URL value + 'jumptoadmin/'::
